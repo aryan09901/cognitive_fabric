@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  # Blockchain Network
+  blockchain-node:
+    build: ./blockchain
+    ports:
+      - "8545:8545"
+    volumes:
+      - ./blockchain/contracts:/app/contracts
+      - ./blockchain/artifacts:/app/artifacts
+    environment:
+      - NETWORK_ID=1337
+      - RPC_URL=http://blockchain-node:8545
+
+  # Vector Database
+  vector-db:
+    image: chromadb/chroma
+    ports:
+      - "8000:8000"
+    environment:
+      - CHROMA_SERVER_HOST=0.0.0.0
+      - CHROMA_SERVER_HTTP_PORT=8000
+    volumes:
+      - chroma_data:/chroma/chroma
+
+  # IPFS Node
+  ipfs-node:
+    image: ipfs/kubo:latest
+    ports:
+      - "5001:5001"
+      - "8080:8080"
+    volumes:
+      - ipfs_data:/data/ipfs
+
+  # Main API
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - BLOCKCHAIN_RPC_URL=http://blockchain-node:8545
+      - VECTOR_DB_URL=http://vector-db:8000
+      - IPFS_URL=http://ipfs-node:5001
+    depends_on:
+      - blockchain-node
+      - vector-db
+      - ipfs-node
+    volumes:
+      - ./models:/app/models
+    command: uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
+
+  # Monitoring Dashboard
+  monitoring:
+    build: .
+    ports:
+      - "3000:3000"
+    command: python monitoring/dashboard.py
+    depends_on:
+      - api
+
+volumes:
+  chroma_data:
+  ipfs_data:

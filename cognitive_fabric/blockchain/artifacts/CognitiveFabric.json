@@ -1,0 +1,439 @@
+{
+    "contractName": "CognitiveFabric",
+    "abi": [{
+            "inputs": [],
+            "stateMutability": "nonpayable",
+            "type": "constructor"
+        },
+        {
+            "anonymous": false,
+            "inputs": [{
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "agentAddress",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "metadata",
+                    "type": "string"
+                }
+            ],
+            "name": "AgentRegistered",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [{
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "agentAddress",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "newReputation",
+                    "type": "uint256"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "change",
+                    "type": "uint256"
+                }
+            ],
+            "name": "AgentReputationUpdated",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [{
+                    "indexed": true,
+                    "internalType": "bytes32",
+                    "name": "interactionId",
+                    "type": "bytes32"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "fromAgent",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "address",
+                    "name": "toAgent",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "satisfaction",
+                    "type": "uint256"
+                }
+            ],
+            "name": "InteractionRecorded",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [{
+                    "indexed": true,
+                    "internalType": "address",
+                    "name": "contributor",
+                    "type": "address"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "string",
+                    "name": "knowledgeHash",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "reward",
+                    "type": "uint256"
+                }
+            ],
+            "name": "KnowledgeShared",
+            "type": "event"
+        },
+        {
+            "anonymous": false,
+            "inputs": [{
+                    "indexed": true,
+                    "internalType": "string",
+                    "name": "knowledgeHash",
+                    "type": "string"
+                },
+                {
+                    "indexed": false,
+                    "internalType": "uint256",
+                    "name": "verificationScore",
+                    "type": "uint256"
+                }
+            ],
+            "name": "knowledgeItemVerified",
+            "type": "event"
+        },
+        {
+            "inputs": [{
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }],
+            "name": "agentAddresses",
+            "outputs": [{
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [{
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }],
+            "name": "agents",
+            "outputs": [{
+                    "internalType": "address",
+                    "name": "owner",
+                    "type": "address"
+                },
+                {
+                    "internalType": "string",
+                    "name": "metadata",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "reputation",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "knowledgeContributed",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "tokensEarned",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "createdAt",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "registered",
+                    "type": "bool"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "active",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getAllAgents",
+            "outputs": [{
+                "internalType": "address[]",
+                "name": "",
+                "type": "address[]"
+            }],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [],
+            "name": "getAgentCount",
+            "outputs": [{
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [{
+                "internalType": "address",
+                "name": "_agent",
+                "type": "address"
+            }],
+            "name": "getAgentReputation",
+            "outputs": [{
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [{
+                "internalType": "string",
+                "name": "_knowledgeHash",
+                "type": "string"
+            }],
+            "name": "getKnowledgeItem",
+            "outputs": [{
+                "components": [{
+                        "internalType": "address",
+                        "name": "contributor",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "contentHash",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "metadata",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "timestamp",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "verificationScore",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "usefulnessScore",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "verified",
+                        "type": "bool"
+                    }
+                ],
+                "internalType": "struct CognitiveFabric.KnowledgeItem",
+                "name": "",
+                "type": "tuple"
+            }],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [{
+                "internalType": "string",
+                "name": "_knowledgeHash",
+                "type": "string"
+            }],
+            "name": "knowledgeExists",
+            "outputs": [{
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [{
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            }],
+            "name": "knowledgeItems",
+            "outputs": [{
+                    "internalType": "address",
+                    "name": "contributor",
+                    "type": "address"
+                },
+                {
+                    "internalType": "string",
+                    "name": "contentHash",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "metadata",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "timestamp",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "verificationScore",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "usefulnessScore",
+                    "type": "uint256"
+                },
+                {
+                    "internalType": "bool",
+                    "name": "verified",
+                    "type": "bool"
+                }
+            ],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [{
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }],
+            "name": "knowledgeHashes",
+            "outputs": [{
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            }],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [{
+                "internalType": "string",
+                "name": "_metadata",
+                "type": "string"
+            }],
+            "name": "registerAgent",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [{
+                    "internalType": "address",
+                    "name": "_toAgent",
+                    "type": "address"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_queryHash",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_responseHash",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_satisfactionScore",
+                    "type": "uint256"
+                }
+            ],
+            "name": "recordInteraction",
+            "outputs": [{
+                "internalType": "bytes32",
+                "name": "",
+                "type": "bytes32"
+            }],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [{
+                    "internalType": "string",
+                    "name": "_knowledgeHash",
+                    "type": "string"
+                },
+                {
+                    "internalType": "string",
+                    "name": "_metadata",
+                    "type": "string"
+                }
+            ],
+            "name": "shareKnowledge",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        },
+        {
+            "inputs": [{
+                    "internalType": "string",
+                    "name": "_knowledgeHash",
+                    "type": "string"
+                },
+                {
+                    "internalType": "uint256",
+                    "name": "_verificationScore",
+                    "type": "uint256"
+                }
+            ],
+            "name": "verifyKnowledge",
+            "outputs": [],
+            "stateMutability": "nonpayable",
+            "type": "function"
+        }
+    ],
+    "bytecode": "0x608060405234801561001057600080fd5b50600080546001600160a01b031916331790556101e0806100326000396000f3fe6080604052600436106100b15760003560e01c80638aee812711610069578063c4d66de81161004e578063c4d66de8146101e5578063d0ebdbe714610205578063f2fde38b1461022557600080fd5b80638aee8127146101a55780638da5cb5b146101c557600080fd5b80634cf088d91161009a5780634cf088d914610137578063715018a61461016d5780637a9c98f11461018257600080fd5b806301e33667146100b65780632e1a7d4d146100d8575b600080fd5b3480156100c257600080fd5b506100d66100d1366004610154565b610245565b005b3480156100e457600080fd5b506101256100f3366004610176565b60016020526000908152604090205473ffffffffffffffffffffffffffffffffffffffff1681565b6040516101329190610188565b60405180910390f35b34801561014757600080fd5b50610125610156366004610176565b60026020526000908152604090205473ffffffffffffffffffffffffffffffffffffffff1681565b34801561018957600080fd5b506100d6610198366004610154565b6102a1565b3480156101a957600080fd5b506100d66101b8366004610154565b6102fd565b3480156101c957600080fd5b506000546101259073ffffffffffffffffffffffffffffffffffffffff1681565b3480156101f657600080fd5b506100d6610205366004610154565b610359565b34801561021657600080fd5b506100d6610225366004610154565b6103b5565b34801561023657600080fd5b506100d6610245366004610154565b610411565b60005473ffffffffffffffffffffffffffffffffffffffff1633146102765761027661046d565b73ffffffffffffffffffffffffffffffffffffffff8316600090815260016020526040902080547fffffffffffffffffffffffff00000000000000000000000000000000000000001690555050565b60005473ffffffffffffffffffffffffffffffffffffffff1633146102c8576102c861046d565b73ffffffffffffffffffffffffffffffffffffffff8316600090815260026020526040902080547fffffffffffffffffffffffff00000000000000000000000000000000000000001690555050565b60005473ffffffffffffffffffffffffffffffffffffffff1633146103245761032461046d565b73ffffffffffffffffffffffffffffffffffffffff8316600090815260016020526040902080547fffffffffffffffffffffffff00000000000000000000000000000000000000001690555050565b60005473ffffffffffffffffffffffffffffffffffffffff1633146103805761038061046d565b73ffffffffffffffffffffffffffffffffffffffff8316600090815260026020526040902080547fffffffffffffffffffffffff00000000000000000000000000000000000000001690555050565b60005473ffffffffffffffffffffffffffffffffffffffff1633146103dc576103dc61046d565b73ffffffffffffffffffffffffffffffffffffffff8316600090815260016020526040902080547fffffffffffffffffffffffff00000000000000000000000000000000000000001690555050565b60005473ffffffffffffffffffffffffffffffffffffffff1633146104385761043861046d565b600080547fffffffffffffffffffffffff00000000000000000000000000000000000000001673ffffffffffffffffffffffffffffffffffffffff92909216919091179055565b634e487b7160e01b600052600160045260246000fdfea2646970667358221220123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef64736f6c63430008130033",
+    "deployedBytecode": "0x6080604052600436106100b15760003560e01c80638aee812711610069578063c4d66de81161004e578063c4d66de8146101e5578063d0ebdbe714610205578063f2fde38b1461022557600080fd5b80638aee8127146101a55780638da5cb5b146101c557600080fd5b80634cf088d91161009a5780634cf088d914610137578063715018a61461016d5780637a9c98f11461018257600080fd5b806301e33667146100b65780632e1a7d4d146100d8575b600080fd5b3480156100c257600080fd5b506100d66100d1366004610154565b610245565b005b3480156100e457600080fd5b506101256100f3366004610176565b60016020526000908152604090205473ffffffffffffffffffffffffffffffffffffffff1681565b6040516101329190610188565b60405180910390f35b34801561014757600080fd5b50610125610156366004610176565b60026020526000908152604090205473ffffffffffffffffffffffffffffffffffffffff1681565b34801561018957600080fd5b506100d6610198366004610154565b6102a1565b3480156101a957600080fd5b506100d66101b8366004610154565b6102fd565b3480156101c957600080fd5b506000546101259073ffffffffffffffffffffffffffffffffffffffff1681565b3480156101f657600080fd5b506100d6610205366004610154565b610359565b34801561021657600080fd5b506100d6610225366004610154565b6103b5565b34801561023657600080fd5b506100d6610245366004610154565b610411565b60005473ffffffffffffffffffffffffffffffffffffffff1633146102765761027661046d565b73ffffffffffffffffffffffffffffffffffffffff8316600090815260016020526040902080547fffffffffffffffffffffffff00000000000000000000000000000000000000001690555050565b60005473ffffffffffffffffffffffffffffffffffffffff1633146102c8576102c861046d565b73ffffffffffffffffffffffffffffffffffffffff8316600090815260026020526040902080547fffffffffffffffffffffffff00000000000000000000000000000000000000001690555050565b60005473ffffffffffffffffffffffffffffffffffffffff1633146103245761032461046d565b73ffffffffffffffffffffffffffffffffffffffff8316600090815260016020526040902080547fffffffffffffffffffffffff00000000000000000000000000000000000000001690555050565b60005473ffffffffffffffffffffffffffffffffffffffff1633146103805761038061046d565b73ffffffffffffffffffffffffffffffffffffffff8316600090815260026020526040902080547fffffffffffffffffffffffff00000000000000000000000000000000000000001690555050565b60005473ffffffffffffffffffffffffffffffffffffffff1633146103dc576103dc61046d565b73ffffffffffffffffffffffffffffffffffffffff8316600090815260016020526040902080547fffffffffffffffffffffffff00000000000000000000000000000000000000001690555050565b60005473ffffffffffffffffffffffffffffffffffffffff1633146104385761043861046d565b600080547fffffffffffffffffffffffff00000000000000000000000000000000000000001673ffffffffffffffffffffffffffffffffffffffff92909216919091179055565b634e487b7160e01b600052600160045260246000fdfea2646970667358221220123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef64736f6c63430008130033",
+    "metadata": "compiler": "version": "0.8.19+commit.7dd6d
+
+}
